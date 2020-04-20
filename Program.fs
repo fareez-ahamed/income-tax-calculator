@@ -38,11 +38,12 @@ let rec calculateTax (regime: Regime) (exemptions: float list) (income: float) :
     calculate taxableIncome
 
 let calculateNewTax = calculateTax New []
-let calculateOldTax = calculateTax Old [ 150000.0; 250000.0; 15000.0; 20000.0 ]
+let calculateOldTax = calculateTax Old [ 150000.0; 150000.0; 15000.0; 20000.0 ]
 
 [<EntryPoint>]
 let main argv =
     let salaries = [ for i in 1 .. 100 -> float i * 25000.0 ]
+    printfn "\"Salary\", \"New Tax\", \"Old Tax (with 1.5L 80C exemption, 15K medical, 1.5L House Rent, 20K LTA)\""
     salaries 
         |> List.map ( fun x -> sprintf "%.2f, %.2f, %.2f" x (calculateNewTax x) (calculateOldTax x) ) 
         |> List.iter ( fun x -> printfn "%s" x )
